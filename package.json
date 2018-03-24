@@ -1,0 +1,7 @@
+{
+  "name": "micro",
+  "version": "0.0.1",
+  "dependencies": {
+    "os": "^0.1.1"
+  }
+}
