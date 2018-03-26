@@ -2,6 +2,13 @@
   "name": "micro",
   "version": "0.0.1",
   "dependencies": {
-    "os": "^0.1.1"
+    "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "underscore": "^1.8.3"
+  },
+  "scripts" : {
+    "start" : "node main.js"
   }
 }
