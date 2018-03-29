@@ -1,0 +1,29 @@
+[
+  {
+    "kafkaCluster"          : "localdev",
+    "kafkaConnectionString" : "192.168.88.197:39092",
+    "kafkaClientId"         : "m3",
+    "kafkaTopic"            :"tpay_mails",
+    "kafkaConsumerGroupId"  : "m3",
+    "consumeKafkaTopics"    :["tpay_notifications"],
+    "kafkaTopicInfo"        : "global_info",
+    "kafkaTopicErr"         : "global_err"
+  },
+  {
+    "kafkaCluster"          : "evolkov-ubuntu-nb",
+    "kafkaConnectionString" : "192.168.1.4:39092",
+    "kafkaClientId"         : "m5",
+    "kafkaConsumerGroupId"  : "m5",
+    "consumeKafkaTopics"    :["tpay_card_payments"],
+    "kafkaTopicInfo"        : "global_info",
+    "kafkaTopicErr"         : "global_err"
+  },
+  {
+    "kafkaCluster"          : "cardstandard2",
+    "kafkaConnectionString" : "10.147.147.4:29092,10.147.147.5:29092",
+    "kafkaClientId"         : "cs-consumer-1",
+    "kafkaTopic"            :"gw_smpp_cs_sms2",
+    "kafkaTopicInfo"        : "global_info",
+    "kafkaTopicErr"         : "global_err"
+  }
+]
