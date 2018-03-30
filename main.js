@@ -4,10 +4,6 @@ const kprod = require('./kafka-producer');
 
 const serviceName = 'ora';
 
-conf.init(serviceName);
-log.init(serviceName);
-kprod.initProducer(onProducerInitEnd);
-
 const onProducerInitEnd = (err) => {
     if(err) {
         console.log('Unable to connect to Kafka. Error: ' + err);
@@ -17,3 +13,7 @@ const onProducerInitEnd = (err) => {
     }
 
 };
+conf.init(serviceName);
+log.init(serviceName);
+kprod.initProducer(onProducerInitEnd);
+

@@ -55,14 +55,15 @@ exports.initProducer = (callback) => {
         }
     }
 
+    initCallback = callback;
     if (!isConfFound) {
         let msg = 'Kafka configs couldn\'t be found!';
-        log.error(msg, logSubsystem);
+        log.error(msg);
         initCallback(msg);
         return 1;
     }
 
-    initCallback = callback;
+
     setInterval(sendQueue, 500);
     connectKafka();
 };
