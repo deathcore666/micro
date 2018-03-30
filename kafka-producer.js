@@ -63,7 +63,6 @@ exports.initProducer = (callback) => {
         return 1;
     }
 
-
     setInterval(sendQueue, 500);
     connectKafka();
 };

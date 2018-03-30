@@ -16,4 +16,4 @@ const onProducerInitEnd = (err) => {
 conf.init(serviceName);
 log.init(serviceName);
 kprod.initProducer(onProducerInitEnd);
-
+kprod.send('replicated-test-topic', 'First Test Message');

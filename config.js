@@ -21,7 +21,7 @@ exports.init = (serviceName) => {
     if (os.platform() === 'win32') {
         exports.msFilesPath = winHomeDir + '\\Documents\\' + msFilesBasePath + '\\' + exports.serviceName + '\\';
     } else if (os.platform() === 'linux') {
-        exports.msFilesPath = './' + msFilesBasePath + '/' + exports.serviceName + '/';
+        exports.msFilesPath = '/' + msFilesBasePath + '/' + exports.serviceName + '/';
     } else if (os.platform() === 'darwin') {
         exports.msFilesPath = '/' + msFilesBasePath + '/' + exports.serviceName + '/';
     }

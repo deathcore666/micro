@@ -2,6 +2,8 @@
   "name": "micro",
   "version": "0.0.1",
   "dependencies": {
+    "async": "^2.6.0",
+    "exeunt": "^1.1.1",
     "fs": "0.0.1-security",
     "ip": "^1.1.5",
     "kafka-node": "^2.4.1",
