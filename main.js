@@ -15,5 +15,5 @@ const onProducerInitEnd = (err) => {
 };
 conf.init(serviceName);
 log.init(serviceName);
-kprod.initProducer(onProducerInitEnd);
-kprod.send('replicated-test-topic', 'First Test Message');
+kprod.init(onProducerInitEnd);
+kprod.send('replicated-test-topic', 'Message from docker');

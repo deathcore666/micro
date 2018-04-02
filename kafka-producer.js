@@ -36,7 +36,7 @@ exports.send = (topic, msg, key = null) => {
     queue.push(kmsg);
 };
 
-exports.initProducer = (callback) => {
+exports.init = (callback) => {
     console.log('Initialising a kafka connection...');
 
     cluster = conf.config.main.kafkaCluster;
@@ -55,15 +55,17 @@ exports.initProducer = (callback) => {
         }
     }
 
-    initCallback = callback;
+
     if (!isConfFound) {
         let msg = 'Kafka configs couldn\'t be found!';
         log.error(msg);
         initCallback(msg);
-        return 1;
+        return;
     }
 
+    initCallback = callback;
     setInterval(sendQueue, 500);
+    // sendQueue();
     connectKafka();
 };
 
@@ -109,7 +111,7 @@ const connectKafka = () => {
         kclient.on('error', onKafkaClientError);
         kclient.on('ready', onKafkaClientReady);
 
-        kproducer = new  HighLevelProducer(kclient, { requireAcks : 1, partitionerType: 2 });
+        kproducer = new HighLevelProducer(kclient, {requireAcks: 1, partitionerType: 2});
 
         kproducer.on('error', onKafkaProducerError);
         kproducer.on('ready', onKafkaProducerReady);
@@ -150,34 +152,30 @@ const onKafkaProducerReady = (err) => {
 const sendQueue = () => {
     if (queue.length === 0) return;
 
-    if(!isKafkaClientReady || !isKafkaProducerReady) {
+    if (!isKafkaClientReady || !isKafkaProducerReady) {
         return;
     }
 
     let payloads = [];
     let qlen = queue.length;
 
-    for (let i = 0;i < qlen;i++ ) {
+    for (let i = 0; i < qlen; i++) {
         payloads[i] = queue[i];
     }
 
-    try {
-        kproducer.send(payloads, (err, data) => {
-            if (err) {
-                let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
-                console.log(msg);
-                log.error(msg);
-            } else {
-                let msg = 'Message successfully send to Kafka. Message: ' + JSON.stringify(payloads) + ', Kafka response: ' +
-                    JSON.stringify(data);
-                console.log(msg);
-                log.debug(msg);
-                queue.splice(0, qlen);
-            }
-        });
-    } catch(err) {
-        let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
-        console.log(msg);
-        log.error(msg);
-    }
+
+    kproducer.send(payloads, (err, data) => {
+        if (err) {
+            let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
+            console.log(msg);
+            log.error(msg);
+        } else {
+            let msg = 'Message successfully send to Kafka. Message: ' + JSON.stringify(payloads) + ', Kafka response: ' + JSON.stringify(data);
+            console.log(msg);
+            log.debug(msg);
+            queue.splice(0, qlen);
+        }
+
+    })
+
 };
