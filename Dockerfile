@@ -1,4 +1,4 @@
-FROM node:9.8.0
+FROM node:8.9.0
 MAINTAINER Bratan
 
 RUN mkdir -p /usr/src/app

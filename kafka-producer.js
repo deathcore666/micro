@@ -55,7 +55,6 @@ exports.init = (callback) => {
         }
     }
 
-
     if (!isConfFound) {
         let msg = 'Kafka configs couldn\'t be found!';
         log.error(msg);
@@ -143,7 +142,7 @@ const onKafkaProducerReady = (err) => {
     isKafkaProducerReady = true;
     exports.isReady = true;
 
-    console.log('Kafka producer connected successfully: ' + kconf.kafkaConnectionString + ', CleintID" ' + kconf.kafkaClientId);
+    console.log('Kafka producer connected successfully: ' + kconf.kafkaConnectionString + ', CleintID ' + kconf.kafkaClientId);
 
     conf.regChangesCallback(connectKafka);
     initCallback(false);
@@ -164,18 +163,24 @@ const sendQueue = () => {
     }
 
 
-    kproducer.send(payloads, (err, data) => {
-        if (err) {
-            let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
-            console.log(msg);
-            log.error(msg);
-        } else {
-            let msg = 'Message successfully send to Kafka. Message: ' + JSON.stringify(payloads) + ', Kafka response: ' + JSON.stringify(data);
-            console.log(msg);
-            log.debug(msg);
-            queue.splice(0, qlen);
-        }
+    try {
+        kproducer.send(payloads, (err, data) => {
+            if (err) {
+                let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
+                console.log(msg);
+                log.error(msg);
+            } else {
+                let msg = 'Message successfully send to Kafka. Message: ' + JSON.stringify(payloads) + ', Kafka response: ' + JSON.stringify(data);
+                console.log(msg);
+                log.debug(msg);
+                queue.splice(0, qlen);
+            }
+        })
+    } catch(err) {
+        let msg = 'Unable to send messages to Kafka. Error: ' + err + '. Messages: ' + JSON.stringify(payloads);
+        console.log(msg);
+        log.error(msg)
+    }
 
-    })
 
 };

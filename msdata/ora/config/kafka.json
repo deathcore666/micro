@@ -33,5 +33,13 @@
     "kafkaTopic"            : "replicated-test-topic",
     "kafkaTopicInfo"        : "global_info",
     "kafkaTopicErr"         : "global_err"
+  },
+  {
+    "kafkaCluster"          : "single-node",
+    "kafkaConnectionString" : "192.168.0.125:9092",
+    "kafkaClientId"         : "cs-consumer-1",
+    "kafkaTopic"            : "no-replication",
+    "kafkaTopicInfo"        : "global_info",
+    "kafkaTopicErr"         : "global_err"
   }
 ]
